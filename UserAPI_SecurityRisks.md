@@ -33,5 +33,7 @@ The `shares` section shares users have the item access, their emails, and access
 The precise `created_at` and `updated_at` timestamps might give insights about user activity patterns. This can be a
 point for hackers,when trying to figure out the best attack timings.
 
+### 7. Accessing Data Without an Authorization Header:
+You can access the API endpoints without an Authorization header. This is a major security risk, as it compromises data security.
 
 
