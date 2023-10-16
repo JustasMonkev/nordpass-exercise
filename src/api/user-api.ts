@@ -9,7 +9,10 @@ export async function getUserToken(request: APIRequestContext): Promise<APIRespo
             username: 'john@doe.com',
             password: 'veryStrongPassword'
         },
-        headers: apiConfig.headers
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
     });
 }
 
@@ -22,7 +25,9 @@ export async function getUserItems(request: APIRequestContext, headers?: {
 }
 
 export async function getUserItem(request: APIRequestContext, id: string): Promise<APIResponse> {
-    return await request.get(endpoints.getUserItem(id));
+    return await request.get(endpoints.getUserItem(id), {
+        headers: apiConfig.headers
+    });
 }
 
 export async function createUserItem(request: APIRequestContext, item: Item): Promise<APIResponse> {
