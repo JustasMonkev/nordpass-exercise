@@ -3,7 +3,8 @@ import {createUserItem, getUserItem, getUserItems, getUserToken} from "../../src
 import * as jwt from "jsonwebtoken";
 import {JwtPayload} from "jsonwebtoken";
 import {mainSchema} from "../../src/utils/itemValidation";
-import {exampleItem, Item} from "../../src/types/item";
+import { createItem } from '../../src/utils/itemFactory';
+import { Item } from "../../src/types/item"; // Keep Item type for response validation
 import {generateHMACSignature} from "../../src/utils/hmacSignature";
 
 test.describe('user actions', () => {
@@ -32,11 +33,15 @@ test.describe('user actions', () => {
         expect(result.error).toBeUndefined();
     });
     test(`should create a new user item`, async ({request}) => {
-        const response = await createUserItem(request, exampleItem);
+        const newItem = createItem();
+        const response = await createUserItem(request, newItem);
         expect(response.status()).toBe(201);
         const createdItem = await response.json();
         const result = mainSchema.validate(createdItem);
         expect(result.error).toBeUndefined();
+        // Optionally, verify that createdItem's properties match newItem's properties
+        expect(createdItem.title).toEqual(newItem.title);
+        expect(createdItem.tags).toEqual(newItem.tags);
     });
     test('verify logged in user', async ({request}) => {
         const response = await getUserToken(request);
@@ -48,7 +53,8 @@ test.describe('user actions', () => {
         expect(decodedPayload.user_uuid).toBe(expectedUuid);
     });
     test('should eventually fetch the newly created item', async ({request}) => {
-        const response = await createUserItem(request, exampleItem);
+        const newItem = createItem();
+        const response = await createUserItem(request, newItem);
         expect(response.status()).toBe(201);
         const createdItem = await response.json();
 

@@ -8,13 +8,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.39.0",
-    "@types/jsonwebtoken": "^9.0.3",
-    "@types/node": "^20.8.5"
+    "@playwright/test": "^1.45.0",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.14.9"
   },
   "dependencies": {
     "crypto-ts": "^1.0.2",
-    "joi": "^17.11.0",
+    "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2"
   }
 }
